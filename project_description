@@ -1,0 +1,110 @@
+I want to create a game that is a twist on the top domains names in the world. Users will join a room, be assigned a color and the game will start. When the game is started, users will enter domain names and when they enter a domain name in the top 10000, it will be added to a list with the domain name and the user who entered it, in the color of the user. The domain names will appear in order of the top 10000, the domain will be displayed with the color of the user who entered it, the number on the domain list and the name of the domain. A banner should also appear at the top with the domain that was just entered.After 60 seconds, the game will end and the user with the most domains in the top 10000 will win, a domain scoring function should be lograithmic, where the higher the domain name is in the top 10000, the less points it is worth.
+
+A user can create a room and a room code will be generated. The user should be required to enter a username.
+
+A user can join a room by entering the room code and the username, I imagine this room is a websocket room.
+
+All the users in the room will be listed on the left side of the screen with their username, color and score.
+
+A user can start the game by clicking a button.
+
+The game will start and the users will be asked to enter a domain name.
+
+When a user enters a domain name, it will be added to a list with the domain name and the user who entered it, in the color of the user. 
+
+The domain names will appear in order of the top 10000, the domain will be displayed with the color of the user who entered it, the number on the domain list and the name of the domain. 
+
+A banner should also appear at the top with the domain that was just entered.
+
+After 60 seconds, the game will end and the user with the most domains in the top 10000 will win, a domain scoring function should be lograithmic, where the higher the domain name is in the top 10000, the less points it is worth.
+
+The backend of the game should be written in python, using FastAPI and websockets.
+
+The frontend of the game should be written in javascript, using React and websockets.
+
+The game should be designed with a mobile first approach.
+
+Domains are sourced from the [Majestic Million](https://majestic.com/reports/majestic-million) list of the top 10,000 domain names.
+
+-----
+
+Cursor Prompt 
+
+```
+
+**Objective:**  
+Create a multiplayer web-based game with a twist on the top domain names globally. The game is competitive, requiring players to enter domain names from the top 10,000 list, scored based on their ranking. 
+
+---
+
+### **Game Overview**
+1. **Game Concept:**
+   - Players join a room with a unique room code.
+   - Each player is assigned a color upon joining.
+   - Players compete by entering domain names from the top 10,000, I will provide a list of the top 10,000 domain names, please import them from a file called top_10000_domains.txt.
+   - Each domain name is scored logarithmically: higher-ranked domains score fewer points.
+   - The game ends after 60 seconds, and the player with the highest score wins.
+
+2. **Gameplay Flow:**
+   - Players join a room by entering a username and the room code, if they do not have a code they can create a room to generate one.
+   - A list of players in the room, along with their username, color, and score, appears on the left side of the screen.
+   - The game host starts the game with a button click.
+   - During gameplay:
+     - Entered domain names are displayed in a sorted list by rank.
+     - Each entry includes:
+       - Domain rank.
+       - Domain name.
+       - Player's assigned color.
+     - A banner at the top displays the latest domain entry.
+   - After 60 seconds, the game ends, and the winner is determined based on the highest score.
+   - The game should have a "New Game" button to start a new game with the same room and players, new players can join the game by entering the room code before the game starts.
+
+---
+
+### **Frontend Requirements**
+- **Framework:** NextJs with WebSockets for real-time interactions, using TailwindCSS for styling.
+- **Design:** Mobile-first responsive design.
+- **UI Components:**
+  1. Room creation/join interface:
+     - Username and room code input fields.
+     - "Create Room" and "Join Room" buttons.
+  2. Game room:
+     - Left panel: Player list with username, color, and score.
+     - Center:
+       - Input field for domain names.
+       - Dynamic list of entered domains with rank, name, and color-coded player info.
+       - Top banner displaying the latest domain entry.
+  3. Post-game:
+     - Display scores and announce the winner.
+     - A "New Game" button to start a new game with the same room.
+
+---
+
+### **Backend Requirements**
+- **Framework:** Python with FastAPI and WebSockets for real-time functionality.
+- **Functionality:**
+  1. Room management:
+     - Generate a unique room code for each game, this should be a 6 character string of numbers and letters.
+       - If a room code is already in use, generate a new one.
+       - If a room code is inactive for more than 10 minutes, remove it from the list of active rooms.
+     - Allow users to join rooms using a WebSocket connection.
+  2. Game mechanics:
+     - Assign a unique color to each player upon joining.
+     - Maintain game state, including:
+       - Players in the room.
+       - Entered domains.
+       - Scores calculated using a logarithmic scoring function.
+     - Broadcast real-time updates to players.
+  3. Timer:
+     - End the game after 60 seconds.
+     - Announce the winner to all players in the room.
+
+---
+
+### **Additional Notes**
+- Use a pre-defined list of the top 10,000 domain names for validation.
+- Ensure high performance for handling multiple rooms and concurrent players.
+- Focus on intuitive UI/UX and real-time responsiveness.
+- Optimize for mobile users without sacrificing functionality on larger screens.
+
+```
